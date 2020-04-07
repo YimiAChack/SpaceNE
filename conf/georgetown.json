@@ -1,0 +1,27 @@
+{
+    "base_path": "../data/",
+    "root": 9437,
+    "num_nodes": 9414,
+    "path_edges": "input/georgetown/edges_georgetown.txt",
+    "path_tree": "input/georgetown/tree_georgetown.txt",
+    "SpaceNE":{
+        "dimension": 64,
+        "walk_length": 5,
+        "num_walks": 5,
+        "deepwalk_path": "input/georgetown/embeddings.pkl",
+        "model_save_path": "output/georgetown/model/model.ckpt",
+        "alpha": 0.5,
+        "beta": 1,
+        "lambda_": 100,
+        "dimension_reduce": 1,
+        "divide_point_u": 10,
+        "max_epoch": 10,
+        "epoch": 10
+    },
+    "model_save":{
+        "basevectors": "output/georgetown/basevectors.pkl",
+        "node_embedding": "output/georgetown/multilayer_embeddings.pkl",
+        "tree": "output/georgetown/tree.pkl",
+        "reconstruction_X": "output/georgetown/reconstruction_X.pkl"
+    }
+}
