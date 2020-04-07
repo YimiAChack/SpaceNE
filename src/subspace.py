@@ -4,7 +4,6 @@
 import numpy as np
 import tensorflow as tf
 from utils import *
-import os
 
 
 class SpaceNE(object):
@@ -13,7 +12,6 @@ class SpaceNE(object):
         self.divide_point_u = params["SpaceNE"]["divide_point_u"]
         self.X = input_X
         self.alpha = tf.constant(params["SpaceNE"]["alpha"], 'float32')
-        self.beta = tf.constant(params["SpaceNE"]["beta"], 'float32')
         self.lambda_ = tf.constant(params["SpaceNE"]["lambda_"], 'float32')
         self.num_community = num_community
         self.tensor_graph = tf.Graph()
@@ -21,8 +19,7 @@ class SpaceNE(object):
         self.output_dim = input_dim - params["SpaceNE"]["dimension_reduce"]
         self.save_path = params["base_path"] + params["SpaceNE"]["model_save_path"]
         self.max_epoch = params["SpaceNE"]["max_epoch"]
-        self.U = tf.Variable(np.random.randn(self.num_community, input_dim, self.output_dim).astype(np.float32),
-                             name='W')
+        self.U = tf.Variable(np.random.randn(self.num_community, input_dim, self.output_dim).astype(np.float32),name='W')
 
     def train(self):
         if self.save_path is None:
@@ -31,7 +28,7 @@ class SpaceNE(object):
 
         print("SpaceNE start training... ")
 
-        loss = self.alpha * self.within_class_dis() + self.beta * self.between_class_dis() + self.lambda_ * self.reg_U()
+        loss = self.within_class_dis() + self.alpha * self.between_class_dis() + self.lambda_ * self.reg_U()
 
         objective_loss = tf.clip_by_value(loss, 1e-8, float('inf') - 1)
         # optimization setup

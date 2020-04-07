@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-import sys
 import os
 import numpy as np
 import math
@@ -46,7 +45,6 @@ def pkl_line_to_spaceNE(in_path):
 
 
 def pkl_line_to_spaceNE_2(init_embeddings):
-    # node_embedding = np.loadtxt(in_path)
     embed_dict = dict()
     for i in range(len(init_embeddings)):
         embed_dict[i] = init_embeddings[i]
@@ -57,7 +55,6 @@ def build_X(root, tree, node_embedding, hi_network, init_embeddings):
     X = list()
 
     if len(node_embedding.keys()) == 0:
-        # node2vec_path = params["base_path"] + params["SpaceNE"]["deepwalk_path"]
         node_embedding[root] = pkl_line_to_spaceNE_2(init_embeddings)
         for i in tree[root].childst:
             com_embed = list()

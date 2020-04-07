@@ -6,13 +6,12 @@
     "path_tree": "input/georgetown/tree_georgetown.txt",
     "SpaceNE":{
         "dimension": 64,
-        "walk_length": 5,
-        "num_walks": 5,
+        "walk_length": 10,
+        "num_walks": 80,
         "deepwalk_path": "input/georgetown/embeddings.pkl",
         "model_save_path": "output/georgetown/model/model.ckpt",
-        "alpha": 0.5,
-        "beta": 1,
-        "lambda_": 100,
+        "alpha": 1,
+        "lambda_": 1000,
         "dimension_reduce": 1,
         "divide_point_u": 10,
         "max_epoch": 10,
@@ -20,8 +19,8 @@
     },
     "model_save":{
         "basevectors": "output/georgetown/basevectors.pkl",
-        "node_embedding": "output/georgetown/multilayer_embeddings.pkl",
+        "multilayer_embeddings": "output/georgetown/multilayer_embeddings.pkl",
         "tree": "output/georgetown/tree.pkl",
-        "reconstruction_X": "output/georgetown/reconstruction_X.pkl"
+        "node_embeddings": "output/georgetown/node_embeddings.npy"
     }
 }

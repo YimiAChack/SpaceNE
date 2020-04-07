@@ -14,11 +14,6 @@ from utils import alias_sample, create_alias_table, partition_num
 
 class RandomWalker:
     def __init__(self, G, p=1, q=1):
-        """
-        :param G:
-        :param p: Return parameter,controls the likelihood of immediately revisiting a node in the walk.
-        :param q: In-out parameter,allows the search to differentiate between “inward” and “outward” nodes
-        """
         self.G = G
         self.p = p
         self.q = q
@@ -36,7 +31,6 @@ class RandomWalker:
         return walk
 
     def node2vec_walk(self, walk_length, start_node):
-
         G = self.G
         alias_nodes = self.alias_nodes
         alias_edges = self.alias_edges
@@ -61,7 +55,6 @@ class RandomWalker:
         return walk
 
     def simulate_walks(self, num_walks, walk_length, workers=1, verbose=0):
-
         G = self.G
         nodes = list(G.nodes())
         res = Parallel(n_jobs=workers, verbose=verbose, )(
@@ -84,12 +77,6 @@ class RandomWalker:
         return walks
 
     def get_alias_edge(self, t, v):
-        """
-        compute unnormalized transition probability between nodes v and its neighbors give the previous visited node t.
-        :param t:
-        :param v:
-        :return:
-        """
         G = self.G
         p = self.p
         q = self.q
@@ -110,9 +97,6 @@ class RandomWalker:
         return create_alias_table(normalized_probs)
 
     def preprocess_transition_probs(self):
-        """
-        Preprocessing of transition probabilities for guiding the random walks.
-        """
         G = self.G
 
         alias_nodes = {}
@@ -134,7 +118,7 @@ class RandomWalker:
         return
 
 
-class DeepWalk:
+class Walks:
     def __init__(self, params, workers=1):
         self.graph = nx.read_edgelist(params["base_path"] + params["path_edges"], create_using=nx.Graph())
         self.w2v_model = None

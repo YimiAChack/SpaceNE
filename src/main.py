@@ -2,13 +2,11 @@
 # -*- coding: UTF-8 -*-
 
 import os
-import sys
 from tree import *
 from utils import *
 import hierarch_network as hn
 from subspace import SpaceNE
 import numpy as np
-import pickle
 from scipy.linalg import *
 from walker import *
 from sklearn.preprocessing import scale
@@ -60,8 +58,10 @@ if __name__ == '__main__':
     tree, n, leafnode_num = extract_hierarchy(params["base_path"] + params["path_tree"])
     hi_network = hn.build_hierach_network(tree, leafnode_num)
 
-    init_embeddings = DeepWalk(params).get_embeddings()
+    init_embeddings = Walks(params).get_embeddings()
 
     train(params["root"], params["SpaceNE"]["dimension"], init_embeddings)
-    reconstruction_X = reconstruction_X_top(basevectors, node_embedding, tree, leafnode_num)
-    save_resX_txt(reconstruction_X, "res_vectors.txt")
+    res_X = reconstruction_X_top(basevectors, node_embedding, tree, leafnode_num)
+
+    save_res(basevectors, node_embedding, tree, res_X, params)  # save embeddings and other parameters
+    # save_resX_txt(res_X, "embeddings.txt") # only save embeddings

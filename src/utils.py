@@ -53,18 +53,20 @@ def load_json_file(file_path):
 
 def save_res(basevectors, node_embedding, tree, res_X, params):
     out1 = open(params["base_path"] + params["model_save"]["basevectors"], 'wb')
-    print(params["base_path"] + params["model_save"]["basevectors"])
     pickle.dump(basevectors, out1)
     out1.close()
-    out2 = open(params["base_path"] + params["model_save"]["node_embedding"], 'wb')
+    out2 = open(params["base_path"] + params["model_save"]["multilayer_embeddings"], 'wb')
     pickle.dump(node_embedding, out2)
     out2.close()
     out3 = open(params["base_path"] + params["model_save"]["tree"], 'wb')
     pickle.dump(tree, out3)
     out3.close()
-    out4 = open(params["base_path"] + params["model_save"]["reconstruction_X"], 'wb')
-    pickle.dump(res_X, out4)
-    out4.close()
+
+    arr = np.array([res_X[0]])
+    for i in range(1, len(res_X.keys())):
+        arr = np.row_stack((arr, res_X[i]))
+    np.save(params["base_path"] + params["model_save"]["node_embeddings"], arr)
+    print("save node embeddngs at ", params["base_path"] + params["model_save"]["node_embeddings"])
 
 
 def reconstruction_X_top(basevectors, node_embedding, tree, leafnode_num):
@@ -87,18 +89,6 @@ def reconstruction_X_top(basevectors, node_embedding, tree, leafnode_num):
     return X_res
 
 
-def load_data():
-    pkl_file = open('./input/X.pkl', 'rb')
-    nodes_communitiy_label = pickle.load(pkl_file)
-    return nodes_communitiy_label
-
-
-def load_y():
-    pkl_file = open('./input/y.pkl', 'rb')
-    y = pickle.load(pkl_file)
-    return y
-
-
 def X_comm_to_arr(X):
     out = list()
     for i in X:
@@ -107,68 +97,6 @@ def X_comm_to_arr(X):
             out.append(j)
     c = np.array(out)
     return np.array(out)
-
-
-def load_data_georgetown():
-    pkl_file = open('./data/input/georgetown/X.pkl', 'rb')
-    community_label = pickle.load(pkl_file)
-    '''
-    f = pickle.load(open('./data/input/georgetown/embeddings.pkl', "rb"), encoding='iso-8859-1')
-    embeddings = f['weights']
-
-    comm_labels = dict()
-    for line in open('./data/input/georgetown/tree_Georgetown15.txt'):
-        line = line.strip('\n').split('\t')
-        if int(line[1])>9413:
-            continue
-        label=int(line[0])
-        if label not in comm_labels.keys():
-            comm_labels[label]=[int(line[1])]
-        else:
-            comm_labels[label].append(int(line[1]))
-
-    community_label = list()
-    for key in comm_labels.keys():
-        community=list()
-        for i in comm_labels[key]:
-            community.append(embeddings[i])
-        community_label.append(np.array(community))
-
-    out = open('./data/input/georgetown/X.pkl', 'wb')
-    pickle.dump(community_label, out)
-    out.close()
-    '''
-    return community_label
-
-
-def load_y_georgetown():
-    pkl_file = open('./data/input/georgetown/y.pkl', 'rb')
-    y = pickle.load(pkl_file)
-    '''
-    comm_labels = dict()
-    for line in open('./data/input/georgetown/tree_Georgetown15.txt'):
-        line = line.strip('\n').split('\t')
-        if int(line[1]) > 9413:
-            continue
-        label = int(line[0])
-        if label not in comm_labels.keys():
-            comm_labels[label] = [int(line[1])]
-        else:
-            comm_labels[label].append(int(line[1]))
-    y_ori=list()
-
-    for line in open('./data/input/georgetown/flag_Georgetown15.txt'):
-        line = line.strip('\n').split('\t')
-        y_ori.append(int(line[1]))
-    y=list()
-    for key in comm_labels.keys():
-        for i in comm_labels[key]:
-            y.append(y_ori[i])
-    out = open('./data/input/georgetown/y.pkl', 'wb')
-    pickle.dump(y, out)
-    out.close()
-    '''
-    return y
 
 
 def create_alias_table(area_ratio):
