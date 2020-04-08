@@ -76,7 +76,6 @@ def reconstruction_X_top(basevectors, node_embedding, tree, leafnode_num):
         com_ids_copy = com_ids[:-1]  # last one is root, no basevector
 
         com_ids.reverse()
-        # print(com_ids_copy)
         for (index, j) in enumerate(com_ids):
             if index == 0:
                 resconstruct_embed = np.array(node_embedding[j][i])
@@ -100,10 +99,6 @@ def X_comm_to_arr(X):
 
 
 def create_alias_table(area_ratio):
-    """
-    :param area_ratio: sum(area_ratio)=1
-    :return: accept,alias
-    """
     l = len(area_ratio)
     accept, alias = [0] * l, [0] * l
     small, large = [], []
@@ -136,11 +131,6 @@ def create_alias_table(area_ratio):
 
 
 def alias_sample(accept, alias):
-    """
-    :param accept:
-    :param alias:
-    :return: sample index
-    """
     N = len(accept)
     i = int(np.random.random() * N)
     r = np.random.random()
@@ -198,6 +188,3 @@ def partition_num(num, workers):
         return [num // workers] * workers
     else:
         return [num // workers] * workers + [num % workers]
-
-        # load_data_georgetown()
-        # load_y_georgetown()
