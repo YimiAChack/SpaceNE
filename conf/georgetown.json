@@ -8,7 +8,6 @@
         "dimension": 64,
         "walk_length": 10,
         "num_walks": 80,
-        "deepwalk_path": "input/georgetown/embeddings.pkl",
         "model_save_path": "output/georgetown/model/model.ckpt",
         "alpha": 1,
         "lambda_": 1000,
