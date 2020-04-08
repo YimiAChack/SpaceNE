@@ -47,7 +47,7 @@ def train(root, input_dim, init_embeddings):
 
     for (index, i) in enumerate(tree[root].childst):
         basevectors[i] = orth(W[index])  # gram_schmidt
-        projection = np.dot(basevectors[i].transpose(), X[index].transpose()).transpose().astype('float32')  # ??
+        projection = np.dot(basevectors[i].transpose(), X[index].transpose()).transpose().astype('float32') 
         node_embedding[i] = embed_array_to_dict(hi_network[i], projection)
         train(i, input_dim - 1, init_embeddings)  # here we constrait the max_dim to (d - 1)
 
