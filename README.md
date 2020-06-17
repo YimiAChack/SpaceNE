@@ -21,10 +21,12 @@ https://drive.google.com/open?id=10Q27eWIQcBKqlXLYf5SGLmlKChBPM6ZP
 #### Cite
 
 ```
-@article{long2019hierarchical,
-title={Hierarchical Community Structure Preserving Network Embedding: A Subspace Approach},
-author={Long, Qingqing and Wang, Yiming and Du, Lun and Song, Guojie and Jin, Yilun and Lin, Wei},
-pages={409--418},
-year={2019}}
+@inproceedings{long2019hierarchical,
+  title={Hierarchical Community Structure Preserving Network Embedding: A Subspace Approach},
+  author={Long, Qingqing and Wang, Yiming and Du, Lun and Song, Guojie and Jin, Yilun and Lin, Wei},
+  booktitle={Proceedings of the 28th ACM International Conference on Information and Knowledge Management},
+  pages={409--418},
+  year={2019}
+}
 ```
 
